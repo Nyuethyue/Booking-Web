@@ -58,24 +58,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
             
-                    <form @submit.prevent="createAdmin">
+                    <form @submit.prevent="createAdmin" @keydown="form.onKeydown($event)">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input id="name" v-model="form.name" type="text" name="name" placeholder="Name" class="form-control">
-                                <HasError :form="form" field="name" />
+                                <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                             </div>
                             <div class="form-group">
                                 <input id="email" v-model="form.email" type="email" name="email" placeholder="Email" class="form-control">
-                                <HasError :form="form" field="email" />
+                                <div v-if="form.errors.has('email')" v-html="form.errors.get('email')" />
                             </div>
                             <div class="form-group">
                                 <input id="phone_no" v-model="form.phone_no" type="text" name="phone_no" placeholder="Enter Mobile Number" class="form-control">
-                                <HasError :form="form" field="phone_no" />
+                                <div v-if="form.errors.has('phone_no')" v-html="form.errors.get('phone_no')" />
                             </div>
 
                             <div class="form-group">
                                 <input id="password" v-model="form.password" type="password" name="password" placeholder="Password" class="form-control">
-                                <HasError :form="form" field="password" />
+                                <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
                             </div>
                         </div>
 
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-    import {Form, HasError } from 'vform'
+    import Form from 'vform'
 
     export default {
         data: () => ({
@@ -105,8 +105,8 @@
 
         methods: {
             async createAdmin () {
-            const response = await this.form.post('/api/adminuser')
-            // ...
+                const response = await this.form.post('/api/adminuser')
+                // ...
             }
         },
 
