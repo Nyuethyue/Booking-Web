@@ -20,16 +20,18 @@
                       <th>ID</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Type</th>
+                      <th>Phone No</th>
+                      <th>Created At</th>
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
+                  <tbody >
+                    <tr v-for="admin in admins" :key="admin.id">
+                      <td>{{ admin.id }}</td>
+                      <td>{{ admin.name }}</td>
+                      <td>{{ admin.email }}</td>
+                      <td>{{ admin.phone_no }}</td>
+                      <td>{{ $filters.myDate(admin.created_at) }}</td>
                       <td>
                           <a href="#">
                               <i class="fa fa-edit blue"></i>
@@ -81,7 +83,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary" :disabled="form.busy">Save</button>
                         </div>
                     </form>
                 </div>
@@ -92,9 +94,12 @@
 
 <script>
     import Form from 'vform'
+import axios from 'axios'
 
     export default {
         data: () => ({
+            admins: {},
+
             form: new Form({
                 name: '',
                 email: '',
@@ -104,14 +109,21 @@
         }),
 
         methods: {
+
+            // get admin
+            loadAdmin () {
+                axios.get("/api/adminuser").then(({ data }) => (this.admins = data.data));
+            },
+
+            // create admin
             async createAdmin () {
                 const response = await this.form.post('/api/adminuser')
-                // ...
             }
         },
 
-        mounted () {
-            console.log('Component Mounted');
+        created () {
+            this.loadAdmin();
         }
     }
 </script>
+ 
