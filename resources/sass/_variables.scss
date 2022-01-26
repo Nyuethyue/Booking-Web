@@ -5,3 +5,60 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: "Nunito", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+// colors
+$blue: #349adc;
+$indigo: #6574cd;
+$purple: #9561a2;
+$pink: #f6609b;
+$red: #a3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #cdc0b5;
+$cyan: #6cb2eb;
+$white: #ffffff;
+
+.blue {
+    color: $blue;
+}
+
+.indigo {
+    color: $indigo;
+}
+
+.purple {
+    color: $purple;
+}
+
+.pink {
+    color: $pink;
+}
+
+.green {
+    color: $green;
+}
+
+.red {
+    color: $red;
+}
+
+.orange {
+    color: $orange;
+}
+
+.yellow {
+    color: $yellow;
+}
+
+.cyan {
+    color: $cyan;
+}
+
+.teal {
+    color: $teal;
+}
+
+.white {
+    color: $white;
+}
