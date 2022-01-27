@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 import moment from 'moment';
 import router from './routes';
 
-import Home from './components/Dashboard.vue';
+import Home from './components/admin/Home.vue';
 
 // createApp({
 //     components: {

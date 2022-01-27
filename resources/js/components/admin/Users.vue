@@ -7,7 +7,7 @@
                 <h3 class="card-title">Admin</h3>
 
                 <div class="card-tools">
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop">
                       <span class="white">Add New Admin </span><i class="fas fa-user-plus white"></i>
                     </button>
                 </div>
@@ -37,7 +37,7 @@
                               <i class="fa fa-edit blue"></i>
                           </a>
                           /
-                          <a href="#">
+                          <a href="#" @click="deleteAdmin(admin.id)">
                               <i class="fa fa-trash red"></i>
                           </a>
                       </td>
@@ -52,15 +52,16 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Admin</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-            
-                    <form @submit.prevent="createAdmin" @keydown="form.onKeydown($event)">
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add New Admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+             <form @submit.prevent="createAdmin">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input id="name" v-model="form.name" type="text" name="name" placeholder="Name" class="form-control">
@@ -82,19 +83,19 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" :disabled="form.busy">Save</button>
                         </div>
                     </form>
-                </div>
             </div>
+        </div>
         </div>
     </div>
 </template>
 
 <script>
     import Form from 'vform'
-import axios from 'axios'
+    import axios from 'axios'
 
     export default {
         data: () => ({
@@ -110,6 +111,14 @@ import axios from 'axios'
 
         methods: {
 
+            // delete Admin
+            async deleteAdmin (id) {
+                const response = await this.form.delete('/api/adminuser/'+id)
+                .then(() => {
+                    
+                })
+                .catch(()=> {})
+            },
             // get admin
             loadAdmin () {
                 axios.get("/api/adminuser").then(({ data }) => (this.admins = data.data));
@@ -117,12 +126,15 @@ import axios from 'axios'
 
             // create admin
             async createAdmin () {
+
                 const response = await this.form.post('/api/adminuser')
+                $('#staticBackdrop').modal('hide');
             }
         },
 
         created () {
             this.loadAdmin();
+            setInterval(()=> this.loadAdmin(), 3000);
         }
     }
 </script>
