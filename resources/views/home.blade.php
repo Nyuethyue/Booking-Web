@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -83,9 +83,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/adminuser" class="nav-link">
+                <router-link to="/booking" class="nav-link">
                   <i class="fas fa-users nav-icon green"></i>
                   <p>Booking</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/bookedhistory" class="nav-link">
+                  <i class="fas fa-users nav-icon green"></i>
+                  <p>History</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/bookinghour" class="nav-link">
+                  <i class="fas fa-users nav-icon green"></i>
+                  <p>Booking Hour</p>
                 </router-link>
               </li>
             </ul>
