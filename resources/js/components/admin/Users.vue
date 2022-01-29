@@ -114,10 +114,7 @@
             // delete Admin
             async deleteAdmin (id) {
                 const response = await this.form.delete('/api/adminuser/'+id)
-                .then(() => {
-                    
-                })
-                .catch(()=> {})
+                
             },
             // get admin
             loadAdmin () {

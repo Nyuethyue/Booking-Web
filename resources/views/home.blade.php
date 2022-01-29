@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-cog green"></i>
               <p>
-                Management
+                Booking Management
                 <i class="right fa fa-angle-left green"></i>
               </p>
             </a>
@@ -85,11 +85,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <router-link to="/adminuser" class="nav-link">
                   <i class="fas fa-users nav-icon green"></i>
-                  <p>Admin</p>
+                  <p>Booking</p>
                 </router-link>
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <router-link to="/adminuser" class="nav-link">
+              <i class="nav-icon fas fa-users orange"></i>
+              <p>
+              Admin Management 
+              </p>
+            </router-link>
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
