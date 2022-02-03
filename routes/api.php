@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\BookedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'adminuser' => AdminController::class,
-]); 
+]);
+
+Route::apiResources([
+    'booked' => BookedController::class,
+]);

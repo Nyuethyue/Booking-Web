@@ -17,23 +17,15 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>SL No</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone No</th>
-                      <th>Date</th>
+                      <th>Sl No</th>
                       <th>Time</th>
-                      <th>Action</th>
+                      <th>ACtions</th>
                     </tr>
                   </thead>
                   <tbody >
                     <tr v-for="admin in admins" :key="admin.id">
                       <td>{{ admin.id }}</td>
                       <td>{{ admin.name }}</td>
-                      <td>{{ admin.email }}</td>
-                      <td>{{ admin.phone_no }}</td>
-                      <td>{{ $filters.myDate(admin.created_at) }}</td>
-                      <td>{{ $filters.myDate(admin.created_at) }}</td>
                       <td>
                           <button class="btn btn-success btn-sm">Confirm</button>
                           <button class="btn btn-danger btn-sm">Cancel</button>
@@ -100,9 +92,6 @@
 
             form: new Form({
                 name: '',
-                email: '',
-                phone_no: '',
-                password: ''
             })
         }),
 

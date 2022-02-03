@@ -7,6 +7,7 @@ import adminuser from './components/admin/Users.vue';
 import booking from './components/admin/Booking.vue';
 import bookedhistory from './components/admin/BookedHistory.vue';
 import bookinghour from './components/admin/BookingHour.vue';
+import booked from './components/admin/Booked.vue';
 
 const routes = [
     {
@@ -47,6 +48,11 @@ const routes = [
         path: '/bookinghour',
         component: bookinghour,
         name: bookinghour
+    },
+    {
+        path: '/booked',
+        component: booked,
+        name: booked
     },
 ];
 
