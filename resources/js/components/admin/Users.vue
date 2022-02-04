@@ -7,7 +7,7 @@
                 <h3 class="card-title">Admin</h3>
 
                 <div class="card-tools">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop">
+                    <button type="button" class="btn btn-success" @click="newModal">
                       <span class="white">Add New Admin </span><i class="fas fa-user-plus white"></i>
                     </button>
                 </div>
@@ -31,9 +31,9 @@
                       <td>{{ admin.name }}</td>
                       <td>{{ admin.email }}</td>
                       <td>{{ admin.phone_no }}</td>
-                      <td>{{ $filters.myDate(admin.created_at) }}</td>
+                      <td>{{ admin.created_at }}d>
                       <td>
-                          <a href="#">
+                          <a href="#" @click="editModal(admin)">
                               <i class="fa fa-edit blue"></i>
                           </a>
                           /
@@ -52,11 +52,11 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="addNew" tabindex="-1"  role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add New Admin</h5>
+                <h5 class="modal-title" id="addNewLabel">Add New Admin</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -84,7 +84,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" :disabled="form.busy">Save</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
             </div>
@@ -96,6 +96,7 @@
 <script>
     import Form from 'vform'
     import axios from 'axios'
+    import $ from 'jquery'
 
     export default {
         data: () => ({
@@ -110,12 +111,52 @@
         }),
 
         methods: {
+            // Open new modal
+            newModal () {
+                this.form.reset();
+                $('#addNew').modal('show');
+            },
+
+            editModal (admin) {
+                this.form.reset();
+                $('#addNew').modal('show');
+                this.form.fill(admin);
+            },
 
             // delete Admin
-            async deleteAdmin (id) {
-                const response = await this.form.delete('/api/adminuser/'+id)
-                
+            deleteAdmin (id) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    })
+                    .then((result) => {
+
+                        if (result.value) {
+                            this.form.delete('/api/adminuser/'+id).
+                            then(() => {  
+                                Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                                )   
+                                Fire.$emit('AfterCreate');
+                            })
+                            .catch(() => {
+                                Swal.fire(
+                                    'Failed!',
+                                    'There was something wrong.',
+                                    'warning'
+                                )
+                            })
+                        }
+                    })
             },
+
             // get admin
             loadAdmin () {
                 axios.get("/api/adminuser").then(({ data }) => (this.admins = data.data));
@@ -123,15 +164,31 @@
 
             // create admin
             async createAdmin () {
-
+                this.$Progress.start();
                 const response = await this.form.post('/api/adminuser')
-                $('#staticBackdrop').modal('hide');
+                .then(() => {
+                    Fire.$emit('AfterCreate');
+                    $('#addNew').modal('hide');
+                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Created in successfully'
+                    });
+
+                    this.$Progress.finish();
+                })
+                .catch(() => {
+
+                })
             }
         },
 
         created () {
             this.loadAdmin();
-            setInterval(()=> this.loadAdmin(), 3000);
+            Fire.$on('AfterCreate', () => {
+                this.loadAdmin();
+            })
+            // setInterval(()=> this.loadAdmin(), 3000);
         }
     }
 </script>

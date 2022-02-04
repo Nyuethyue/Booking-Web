@@ -18,16 +18,19 @@
         "postcss": "^8.1.14",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.11",
-        "sass-loader": "^11.0.1"
+        "sass-loader": "^11.0.1",
+        "vue": "^2.6.11",
+        "vue-loader": "^15.9.8",
+        "vue-router": "^3.1.6",
+        "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "admin-lte": "3.1",
+        "jquery": "^3.6.0",
         "moment": "^2.29.1",
+        "sweetalert2": "^11.3.10",
         "vform": "^2.1.2",
-        "vue": "^3.2.29",
-        "vue-loader": "^17.0.0",
-        "vue-progressbar": "^0.7.5",
-        "vue-router": "^4.0.12"
+        "vue-progressbar": "^0.7.5"
     }
 }

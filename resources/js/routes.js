@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router";
+import Vue from "vue";
+import Router from 'vue-router';
+Vue.use(Router)
 
-import home from './components/admin/Home.vue';
-import dashboard from './components/Dashboard.vue';
 import profile from './components/Profile.vue';
 import adminuser from './components/admin/Users.vue';
 import booking from './components/admin/Booking.vue';
@@ -11,52 +11,42 @@ import booked from './components/admin/Booked.vue';
 
 const routes = [
     {
-        path: '/home',
-        component: home,
-        name: home
+        path: '/home', component: require('./components/admin/Home.vue')
     },
 
     {
-        path: '/dashboard',
-        component: dashboard,
-        name: dashboard
+        path: '/dashboard', component: require('./components/Dashboard.vue')
     },
 
     {
         path: '/adminuser',
         component: adminuser,
-        name: adminuser
     },
 
     {
         path: '/profile',
         component: profile,
-        name: profile
     },
     {
         path: '/booking',
         component: booking,
-        name: booking
     },
 
     {
         path: '/bookedhistory',
         component: bookedhistory,
-        name: bookedhistory
     },
     {
         path: '/bookinghour',
         component: bookinghour,
-        name: bookinghour
     },
     {
         path: '/booked',
         component: booked,
-        name: booked
     },
 ];
 
-export default createRouter({
-    history: createWebHistory(),
+export default new Router({
+    mode: 'history',
     routes
 })

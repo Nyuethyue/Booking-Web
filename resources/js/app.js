@@ -1,51 +1,39 @@
 require('./bootstrap');
 
-import { createApp } from 'vue';
+window.Vue = require('vue').default;
 import moment from 'moment';
+import Vue from 'vue';
 import router from './routes';
 
-import Home from './components/admin/Home.vue';
+import Swal from 'sweetalert2';
+window.Swal = Swal;
 
-// createApp({
-//     components: {
-//         Home
-//     }
-// }).use(router).mount('#app')
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
 
-const app = createApp({
-    components: Home
+window.Toast = Toast;
+
+import VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '3px'
+  })
+
+
+Vue.filter('upText', function(text){
+    return text.charAt(0).toUpperCase() + text.slice(1);
 })
 
-// Global Filters for moment
-app.config.globalProperties.$filters = {
-    myDate(created) {
-        return moment(created).format("MMM Do YY");
-    }
-}
+window.Fire = new Vue();
 
-// Global Filters for Sting to uppercase
-// app.config.globalProperties.$filters = {
-//     upText(text) {
-//       return text.toUpperCase();
-//     }
-// }
+Vue.component('home', require('./components/admin/Home.vue').default)
 
-
-app.use(router)
-app.mount('#app')
-
-
-
-
-
-
-// Global Filters
-// .config.globalProperties.$filters = {
-//     upText(text) {
-//       return text.toUpperCase();
-//     }
-//   }
-
-// to do later
-
-// moment
+const app = new Vue({
+    el: '#app',
+    router
+})
