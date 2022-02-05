@@ -84,7 +84,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input id="password" v-model="form.password" type="password" name="password" placeholder="Password" class="form-control">
+                                <input id="password" v-model="form.password" type="password" name="password" placeholder="Password" class="form-control" autocomplete="on">
                                 <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
                             </div>
                         </div>

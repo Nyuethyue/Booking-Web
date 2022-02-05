@@ -12,23 +12,17 @@
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center">{{this.form.name}}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center">{{this.form.email}}</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
+                    <p>{{this.form.phone_no}}</p>
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <a href="/adminuser" class="btn btn-primary btn-block"><b>Admin List</b></a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -168,7 +162,7 @@
 
                         <div class="col-sm-12">
                         <input type="" v-model="form.name" class="form-control" id="inputName" placeholder="Name" :class="{ 'is-invalid': form.errors.has('name') }">
-                            <has-error :form="form" field="name"></has-error>
+                            <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                         </div>
                     </div>
                       <div class="form-group">
@@ -176,7 +170,7 @@
 
                         <div class="col-sm-12">
                         <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Email"  :class="{ 'is-invalid': form.errors.has('email') }">
-                            <has-error :form="form" field="email"></has-error>
+                            <div v-if="form.errors.has('email')" v-html="form.errors.get('email')" />
                         </div>
                     </div>
                       <div class="form-group">
@@ -184,21 +178,20 @@
 
                                     <div class="col-sm-12">
                                     <input type="text" v-model="form.phone_no" class="form-control" id="phone_no" placeholder="Phone Number"  :class="{ 'is-invalid': form.errors.has('phone_no') }">
-                                     <has-error :form="form" field="phone_no"></has-error>
+                                     <div v-if="form.errors.has('phone_no')" v-html="form.errors.get('phone_no')" />
                                     </div>
                                 </div>
                       <div class="form-group">
-                                    <label for="password" class="col-sm-12 control-label">Passport (leave empty if not changing)</label>
-
-                                    <div class="col-sm-12">
-                                    <input type="password"
-                                        v-model="form.password"
-                                        class="form-control"
+                        <label for="password" class="col-sm-12 control-label">Passport (leave empty if not changing)</label>
+                          <div class="col-sm-12">
+                              <input type="password"
+                                  v-model="form.password"
+                                    class="form-control"
                                         id="password"
-                                        placeholder="Passport"
+                                        placeholder="Password" autocomplete="on"
                                         :class="{ 'is-invalid': form.errors.has('password') }"
                                     >
-                                     <has-error :form="form" field="password"></has-error>
+                                    <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
                                     </div>
                                 </div>
                       <!-- <div class="form-group row">
