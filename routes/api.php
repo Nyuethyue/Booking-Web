@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResources([
     'adminuser' => AdminController::class,
 ]);
+Route::get('/profile', [AdminController::class, 'profile']);
+Route::put('/profile', [AdminController::class, 'updateProfile']);
 
 Route::apiResources([
     'booked' => BookedController::class,

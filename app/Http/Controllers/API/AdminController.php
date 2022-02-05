@@ -65,6 +65,26 @@ class AdminController extends Controller
         //
     }
 
+    public function updateProfile(Request $request) {
+        $user = auth('api')->user();
+
+        $request->validate([
+            'name' => 'required|String|max:191',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'phone_no' => 'sometimes|String|max:8',
+            'password' => 'sometimes|String|min:8',
+        ]);
+
+        $user->update($request->all());
+
+        return ['msg' => 'updated successfully'];
+    }
+
+    public function profile()
+    {
+        return auth('api')->user();
+    }
+
     /**
      * Update the specified resource in storage.
      *

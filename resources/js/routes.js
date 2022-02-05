@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from 'vue-router';
 Vue.use(Router)
 
-import profile from './components/Profile.vue';
+import profile from './components/admin/Profile.vue';
 import adminuser from './components/admin/Users.vue';
 import booking from './components/admin/Booking.vue';
 import bookedhistory from './components/admin/BookedHistory.vue';
