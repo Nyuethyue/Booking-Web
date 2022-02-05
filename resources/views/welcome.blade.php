@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Thimphu Futsal</title>
 
+  <link rel="icon" href="{{ url('img/futsal_logo.jpg') }}">
   <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 <body class="hold-transition layout-top-nav">
