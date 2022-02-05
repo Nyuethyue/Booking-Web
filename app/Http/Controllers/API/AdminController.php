@@ -16,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(10);
+        return User::latest()->paginate(7);
     }
 
     /**
@@ -63,7 +63,25 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $admin = User::findOrFail($id);
+
+
+        $request->validate([
+            'name' => 'required|String|max:191',
+            'email' => 'required|email|unique:users,email,'.$admin->id,
+            'phone_no' => 'sometimes|String|max:8',
+            'password' => 'sometimes|String|min:8',
+        ]);
+        // $validated = $request->validate([
+        //     'name' => ['required', 'string', 'max:191'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'phone_no' => ['sometimes', 'string', 'max:8', 'min:8'],
+        //     'password' => ['sometimes', 'string', 'min:8'],
+        // ]);
+
+        $admin->update($request->all());
+
+        return ['msg' => 'admin updated!'];
     }
 
     /**

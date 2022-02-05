@@ -17,6 +17,9 @@ const Toast = Swal.mixin({
 
 window.Toast = Toast;
 
+
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 import VueProgressBar from 'vue-progressbar'
 Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',

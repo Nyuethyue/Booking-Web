@@ -8,7 +8,7 @@
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-success" @click="newModal">
-                      <span class="white">Add New Admin </span><i class="fas fa-user-plus white"></i>
+                      <span  class="white">Add New Admin </span><i class="fas fa-user-plus white"></i>
                     </button>
                 </div>
               </div>
@@ -26,7 +26,7 @@
                     </tr>
                   </thead>
                   <tbody >
-                    <tr v-for="admin in admins" :key="admin.id">
+                    <tr v-for="admin in admins.data" :key="admin.id">
                       <td>{{ admin.id }}</td>
                       <td>{{ admin.name }}</td>
                       <td>{{ admin.email }}</td>
@@ -46,6 +46,12 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                    <pagination :data="admins" @pagination-change-page="getResults">
+                        <span slot="prev-nav">&lt; Previous</span>
+	                    <span slot="next-nav">Next &gt;</span>
+                    </pagination>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -56,12 +62,13 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addNewLabel">Add New Admin</h5>
+                <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New Admin</h5>
+                <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update Admin Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-             <form @submit.prevent="createAdmin">
+             <form @submit.prevent="editmode ? updateAmdin() : createAdmin()">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input id="name" v-model="form.name" type="text" name="name" placeholder="Name" class="form-control">
@@ -84,7 +91,8 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
             </div>
@@ -100,9 +108,12 @@
 
     export default {
         data: () => ({
+            editmode: false,
+
             admins: {},
 
             form: new Form({
+                id: '',
                 name: '',
                 email: '',
                 phone_no: '',
@@ -111,13 +122,41 @@
         }),
 
         methods: {
+
+             // This method is for pagination
+            getResults(page = 1) {
+			axios.get('api/adminuser?page=' + page)
+				.then(response => {
+					this.admins = response.data;
+				});
+		    },
+
             // Open new modal
             newModal () {
                 this.form.reset();
                 $('#addNew').modal('show');
             },
 
+            updateAmdin() {
+                // console.log('editing data');
+                this.$Progress.start();
+                this.form.put('/api/adminuser/'+this.form.id)
+                .then(() => {
+                    $('#addNew').modal('hide');
+                    Swal.fire(
+                        'Updated!',
+                        'Your info has been updated.',
+                        'success'
+                    )
+                    Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                })
+            },
+
             editModal (admin) {
+                this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show');
                 this.form.fill(admin);
@@ -159,11 +198,12 @@
 
             // get admin
             loadAdmin () {
-                axios.get("/api/adminuser").then(({ data }) => (this.admins = data.data));
+                axios.get("/api/adminuser").then(({ data }) => (this.admins = data));
             },
 
             // create admin
             async createAdmin () {
+                this.editmode = false;
                 this.$Progress.start();
                 const response = await this.form.post('/api/adminuser')
                 .then(() => {
@@ -189,7 +229,7 @@
                 this.loadAdmin();
             })
             // setInterval(()=> this.loadAdmin(), 3000);
-        }
+        },
     }
 </script>
  
