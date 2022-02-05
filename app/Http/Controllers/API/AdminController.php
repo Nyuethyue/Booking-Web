@@ -75,6 +75,10 @@ class AdminController extends Controller
             'password' => 'sometimes|String|min:8',
         ]);
 
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
         $user->update($request->all());
 
         return ['msg' => 'updated successfully'];

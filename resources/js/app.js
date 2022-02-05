@@ -34,7 +34,7 @@ Vue.filter('upText', function(text){
 
 window.Fire = new Vue();
 
-Vue.component('home', require('./components/admin/Home.vue').default)
+// Vue.component('home', require('./components/admin/Home.vue').default)
 
 const app = new Vue({
     el: '#app',

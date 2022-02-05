@@ -8,14 +8,17 @@ import booking from './components/admin/Booking.vue';
 import bookedhistory from './components/admin/BookedHistory.vue';
 import bookinghour from './components/admin/BookingHour.vue';
 import booked from './components/admin/Booked.vue';
+import dashboard from './components/admin/Dashboard.vue';
+import home from './components/admin/Dashboard.vue';
+import notfound from './components/NotFound.vue';
 
 const routes = [
     {
-        path: '/home', component: require('./components/admin/Home.vue')
+        path: '/dashboard', component: dashboard,
     },
 
     {
-        path: '/dashboard', component: require('./components/Dashboard.vue')
+        path: '/home', component: home,
     },
 
     {
@@ -44,6 +47,7 @@ const routes = [
         path: '/booked',
         component: booked,
     },
+    {path: '*', component: notfound,}
 ];
 
 export default new Router({
