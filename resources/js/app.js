@@ -34,9 +34,13 @@ Vue.filter('upText', function(text){
 
 window.Fire = new Vue();
 
-// Vue.component('home', require('./components/admin/Home.vue').default)
-
 const app = new Vue({
     el: '#app',
     router
 })
+
+// Vue.component('landing', require('./components/frontend/Landing').default)
+// const book = new Vue({
+//   el: '#book',
+//   router
+// })
