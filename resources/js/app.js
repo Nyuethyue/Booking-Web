@@ -38,9 +38,3 @@ const app = new Vue({
     el: '#app',
     router
 })
-
-// Vue.component('landing', require('./components/frontend/Landing').default)
-// const book = new Vue({
-//   el: '#book',
-//   router
-// })
